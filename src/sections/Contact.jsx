@@ -1,49 +1,59 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane, FaLinkedin, FaGithub } from 'react-icons/fa'
+import { useState } from "react";
+import { motion } from "framer-motion";
+import {
+  FaEnvelope,
+  FaPhone,
+  FaMapMarkerAlt,
+  FaPaperPlane,
+  FaLinkedin,
+  FaGithub,
+} from "react-icons/fa";
 
-const WEB3FORMS_ACCESS_KEY = 'c274b68d-26e4-4f4c-837b-90fbfc6d7491' // Replace with your Web3Forms access key from web3forms.com
+const WEB3FORMS_ACCESS_KEY = "4e583d67-443c-469f-b7e4-2f8db929b59d"; // Replace with your Web3Forms access key from web3forms.com
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  })
-  const [status, setStatus] = useState('idle') // idle | sending | success | error
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [status, setStatus] = useState("idle"); // idle | sending | success | error
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setStatus('sending')
+    e.preventDefault();
+    setStatus("sending");
     try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
         body: JSON.stringify({
           access_key: WEB3FORMS_ACCESS_KEY,
           from_name: formData.name,
           email: formData.email,
           message: formData.message,
         }),
-      })
-      const data = await res.json()
+      });
+      const data = await res.json();
       if (data.success) {
-        setStatus('success')
-        setFormData({ name: '', email: '', message: '' })
-        setTimeout(() => setStatus('idle'), 4000)
+        setStatus("success");
+        setFormData({ name: "", email: "", message: "" });
+        setTimeout(() => setStatus("idle"), 4000);
       } else {
-        setStatus('error')
-        setTimeout(() => setStatus('idle'), 4000)
+        setStatus("error");
+        setTimeout(() => setStatus("idle"), 4000);
       }
     } catch {
-      setStatus('error')
-      setTimeout(() => setStatus('idle'), 4000)
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 4000);
     }
-  }
+  };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   return (
     <section id="contact" className="py-20 lg:py-32 px-6 lg:px-8">
@@ -71,8 +81,9 @@ const Contact = () => {
                 Let's Build Mobile Apps
               </h3>
               <p className="text-gray-400 text-lg leading-relaxed">
-                Open to Flutter developer roles and collaborations — especially cross-platform mobile apps,
-                full-stack solutions with .NET backends, and innovative UI/UX experiences.
+                Open to Flutter developer roles and collaborations — especially
+                cross-platform mobile apps, full-stack solutions with .NET
+                backends, and innovative UI/UX experiences.
               </p>
             </div>
 
@@ -83,7 +94,9 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="text-gray-400 text-sm">Email</p>
-                  <p className="text-white font-medium">maryamabdulrehman303@gmail.com</p>
+                  <p className="text-white font-medium">
+                    maryamabdulrehman303@gmail.com
+                  </p>
                 </div>
               </div>
 
@@ -110,7 +123,7 @@ const Contact = () => {
 
             <div className="flex gap-4 pt-4">
               <motion.a
-                href="https://www.linkedin.com/"
+                href="https://www.linkedin.com/in/maryam-abdul-rehman-1a6709302"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 rounded-xl bg-accent-blue/10 border border-accent-blue/20 flex items-center justify-center hover:bg-accent-blue/20 hover:border-accent-blue/40 transition-all cursor-pointer"
@@ -121,7 +134,7 @@ const Contact = () => {
               </motion.a>
 
               <motion.a
-                href="https://github.com/"
+                href="https://github.com/MaryamAbdulRehman"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 rounded-xl bg-accent-blue/10 border border-accent-blue/20 flex items-center justify-center hover:bg-accent-blue/20 hover:border-accent-blue/40 transition-all cursor-pointer"
@@ -140,7 +153,9 @@ const Contact = () => {
               transition={{ delay: 0.3 }}
             >
               <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-green-400 font-medium">Open to Flutter Developer roles</span>
+              <span className="text-green-400 font-medium">
+                Open to Flutter Developer roles
+              </span>
             </motion.div>
           </motion.div>
 
@@ -199,26 +214,30 @@ const Contact = () => {
 
             <motion.button
               type="submit"
-              disabled={status === 'sending'}
+              disabled={status === "sending"}
               className="w-full glow-button px-8 py-4 rounded-xl text-white font-semibold text-lg flex items-center justify-center gap-3 disabled:opacity-60"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              {status === 'sending' ? 'Sending...' : 'Send Message'}
+              {status === "sending" ? "Sending..." : "Send Message"}
               <FaPaperPlane />
             </motion.button>
 
-            {status === 'success' && (
-              <p className="text-green-400 text-center text-sm">Message sent successfully!</p>
+            {status === "success" && (
+              <p className="text-green-400 text-center text-sm">
+                Message sent successfully!
+              </p>
             )}
-            {status === 'error' && (
-              <p className="text-red-400 text-center text-sm">Something went wrong. Please try again.</p>
+            {status === "error" && (
+              <p className="text-red-400 text-center text-sm">
+                Something went wrong. Please try again.
+              </p>
             )}
           </motion.form>
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Contact
+export default Contact;
